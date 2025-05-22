@@ -33,10 +33,3 @@ This project allows admins to perform CRUD operations, filter products by catego
 4. Run the server
       node index.js
    Server runs on http://localhost:5000
-
-📬 API Endpoints
-Method	   Route        	         Description
-GET	      /products	         Get all products (optional filters: inStock, category)
-POST	      /products	         Add new product(s)
-PUT	      /products/:id	   Update product by ID
-DELETE	/products/:id	   Delete product by ID
