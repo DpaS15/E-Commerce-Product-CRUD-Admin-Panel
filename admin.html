@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - Product Manager</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <div class="card shadow p-4">
+      <h2 class="text-center mb-4">Product Manager Admin Panel</h2>
+
+      <form id="productForm" class="mb-4">
+        <input type="hidden" id="productId" />
+        <div class="row g-3">
+          <div class="col-md-4"><input type="text" id="title" class="form-control" placeholder="Product Title" required /></div>
+          <div class="col-md-2"><input type="number" id="price" class="form-control" placeholder="Price" required /></div>
+          <div class="col-md-2"><input type="number" id="stock" class="form-control" placeholder="Stock" required /></div>
+          <div class="col-md-4"><input type="text" id="category" class="form-control" placeholder="Category" required /></div>
+        </div>
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-sm btn-success px-4">Save Product</button>
+        </div>
+      </form>
+
+      <div class="mb-3 d-flex align-items-center">
+        <label class="me-2">Filter:</label>
+        <select id="stockFilter" class="form-select w-auto me-2">
+          <option value="">All Stock</option>
+          <option value="true">In Stock</option>
+          <option value="false">Out of Stock</option>
+        </select>
+        <input type="text" id="categoryFilter" placeholder="Category" class="form-control w-auto me-2" />
+        <button class="btn btn-sm btn-outline-secondary" onclick="loadProducts()">Apply</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover bg-white">
+          <thead class="table-light">
+            <tr>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
