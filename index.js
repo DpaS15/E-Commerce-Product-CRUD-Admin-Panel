@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+require("dotenv").config(); // Load environment variables from .env
 
 const User = require("./userModel");
 const Product = require("./productModel");
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "admin.html"));
 });
 
-// GET products with filters
+// GET products with optional filters: category, inStock
 app.get("/products", async (req, res) => {
   try {
     const filter = {};
@@ -34,7 +35,7 @@ app.get("/products", async (req, res) => {
   }
 });
 
-// POST add product(s)
+// POST - Add single or multiple products
 app.post("/products", async (req, res) => {
   try {
     const productData = req.body;
@@ -62,7 +63,7 @@ app.post("/products", async (req, res) => {
   }
 });
 
-// PUT update product
+// PUT - Update a product by ID
 app.put("/products/:id", async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -76,7 +77,7 @@ app.put("/products/:id", async (req, res) => {
   }
 });
 
-// DELETE product
+// DELETE - Remove a product by ID
 app.delete("/products/:id", async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
@@ -87,11 +88,16 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-// Connect DB and start server
-mongoose.connect("mongodb://localhost:27017/e-commerce_product_data")
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("✅ Connected to MongoDB"))
+.catch((err) => console.error("❌ MongoDB connection error:", err));
 
-app.listen(5000, () => {
-  console.log("Server running at http://localhost:5000");
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

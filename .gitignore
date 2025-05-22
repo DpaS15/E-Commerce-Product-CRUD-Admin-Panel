@@ -31,3 +31,6 @@ coverage/
 
 # NPM package-lock
 package-lock.json
+
+#Secure info 
+.env
